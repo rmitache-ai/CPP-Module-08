@@ -13,11 +13,15 @@ public:
 
 	Span& operator=(Span const& rhs);
 
-	void         addNumber(unsigned int n);
-	std::vector<unsigned int> getMaxNumIntegers() const;
+	void                      addNumber(unsigned int n);
+	void                      fill();
+	unsigned int              shortestSpan();
+	unsigned int              longestSpan();
+	std::vector<unsigned int> getSpanVec() const;
 
 private:
-	std::vector<unsigned int> _maxNumIntegers;
+	std::vector<unsigned int> _spanVec;
+	unsigned int              _spanSize;
 };
 
 std::ostream& operator<<(std::ostream& OUT, Span const& other);
