@@ -4,9 +4,18 @@
 int main() {
 	MutantStack<int> mstack;
 
-	mstack.push(1);
-	mstack.push(2);
-	mstack.push(3);
+	for (int i = 0; i < 10; i++) {
+		mstack.push(i);
+	}
+
+	MutantStack<int>::iterator it  = mstack.begin();
+	MutantStack<int>::iterator ite = mstack.end();
+
+	it++;
+	while (it != ite) {
+		std::cout << *it << std::endl;
+		it++;
+	}
 
 	return 0;
 }
