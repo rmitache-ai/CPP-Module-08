@@ -56,14 +56,8 @@ std::ostream& operator<<(std::ostream& OUT, Span const& other) {
 /*
 ** --------------------------------- METHODS ----------------------------------
 */
-
-void Span::fill() {
-	unsigned int i = -1;
-	while (++i < _spanSize) {
-		_spanVec.push_back(rand());
-		std::cout << "Filled i: [" << i << "] with "
-				  << _spanVec[i] << std::endl;
-	}
+void Span::fill(Span& begin, int value) {
+	 
 }
 
 std::vector<unsigned int> Span::getSpanVec() const {
@@ -72,36 +66,22 @@ std::vector<unsigned int> Span::getSpanVec() const {
 
 void Span::addNumber(unsigned int n) {
 	if (_spanVec.size() >= _spanSize) {
-		std::cout << "Span size has reached" << std::endl;
-		return;
-	}
-	try {
-		if (std::find(_spanVec.begin(), _spanVec.end(), n)
-			!= _spanVec.end()) {
-			throw _spanSize;
-		}
-	} catch (unsigned int _spanSize) {
-		std::cout << "Number already added. Please use a "
-					 "different number"
-				  << std::endl;
-		return;
+		throw maxSizedReached();
 	}
 	_spanVec.push_back(n);
 }
 
 unsigned int Span::shortestSpan() {
-
+	if (_spanVec.size() < 2) {
+		throw notEnoughNumbers();
+	}
 	unsigned int previous_span
 		= std::numeric_limits<unsigned int>::max();
-	if (_spanVec.size() < 2) {
-		previous_span = 0;
-	}
-	unsigned int              span   = 0;
 	std::vector<unsigned int> sorted = _spanVec;
 	std::sort(sorted.begin(), sorted.end());
 
 	for (size_t i = 0; i < sorted.size() - 1; ++i) {
-		span = sorted[i + 1] - sorted[i];
+		unsigned int span = sorted[i + 1] - sorted[i];
 		if (span < previous_span) {
 			previous_span = span;
 		}
@@ -110,20 +90,21 @@ unsigned int Span::shortestSpan() {
 }
 
 unsigned int Span::longestSpan() {
-	std::vector<unsigned int> sorted = _spanVec;
-	unsigned int              start  = -1;
-	unsigned int              end    = -1;
-
-	std::sort(sorted.begin(), sorted.end());
-	for (unsigned int i = 0; i < sorted.size(); i++) {
-		if (i == 0) {
-			start = sorted[i];
-		}
-		if (i == sorted.size() - 1) {
-			end = sorted[i];
-		}
+	if (_spanVec.size() < 2) {
+		throw notEnoughNumbers();
 	}
-	return (end - start);
+	std::vector<unsigned int> sorted = _spanVec;
+	std::sort(sorted.begin(), sorted.end());
+
+	return (sorted[sorted.size() - 1] - sorted[0]);
+}
+
+const char* Span::maxSizedReached::what() const throw() {
+	return ("Max sized has been reached\n");
+}
+
+const char* Span::notEnoughNumbers::what() const throw() {
+	return ("Not enough numbers to search in\n");
 }
 
 /*

@@ -5,6 +5,9 @@
 #include <vector>
 
 class Span {
+private:
+	std::vector<unsigned int> _spanVec;
+	unsigned int              _spanSize;
 
 public:
 	Span(unsigned int n);
@@ -14,14 +17,18 @@ public:
 	Span& operator=(Span const& rhs);
 
 	void                      addNumber(unsigned int n);
-	void                      fill();
 	unsigned int              shortestSpan();
 	unsigned int              longestSpan();
 	std::vector<unsigned int> getSpanVec() const;
 
-private:
-	std::vector<unsigned int> _spanVec;
-	unsigned int              _spanSize;
+	class maxSizedReached : public std::exception {
+	public:
+		const char* what() const throw();
+	};
+	class notEnoughNumbers : public std::exception {
+	public:
+		const char* what() const throw();
+	};
 };
 
 std::ostream& operator<<(std::ostream& OUT, Span const& other);

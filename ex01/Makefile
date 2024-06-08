@@ -1,7 +1,7 @@
-NAME = easyfind
+NAME = span
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 CXX = c++
-SRCS = main.cpp
+SRCS = main.cpp Span.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)

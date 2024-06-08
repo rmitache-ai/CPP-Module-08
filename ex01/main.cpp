@@ -1,3 +1,4 @@
+#include "Fill.hpp"
 #include "Span.hpp"
 
 int main() {
