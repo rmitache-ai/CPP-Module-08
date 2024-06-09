@@ -56,9 +56,6 @@ std::ostream& operator<<(std::ostream& OUT, Span const& other) {
 /*
 ** --------------------------------- METHODS ----------------------------------
 */
-void Span::fill(Span& begin, int value) {
-	 
-}
 
 std::vector<unsigned int> Span::getSpanVec() const {
 	return _spanVec;
@@ -71,6 +68,18 @@ void Span::addNumber(unsigned int n) {
 	_spanVec.push_back(n);
 }
 
+void Span::fill(std::vector<unsigned int>::iterator start,
+				std::vector<unsigned int>::iterator end) {
+	size_t numElements = 0;
+	for (std::vector<unsigned int>::iterator it = start;
+		 it != end; ++it) {
+		++numElements;
+	}
+	if (numElements > _spanSize) {
+		throw maxSizedReached();
+	}
+	_spanVec.insert(_spanVec.end(), start, end);
+}
 unsigned int Span::shortestSpan() {
 	if (_spanVec.size() < 2) {
 		throw notEnoughNumbers();

@@ -28,8 +28,8 @@ public:
 		return *this;
 	};
 
-	iterator begin() { return (std::stack<T>::c.begin()); }
-	iterator end() { return (std::stack<T>::c.end()); }
+	iterator begin() { return std::stack<T>::c.begin(); }
+	iterator end() { return std::stack<T>::c.end(); }
 };
 
 #endif /* ***************************************************** MUTANTSTACK_H */

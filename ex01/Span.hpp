@@ -16,9 +16,11 @@ public:
 
 	Span& operator=(Span const& rhs);
 
-	void                      addNumber(unsigned int n);
-	unsigned int              shortestSpan();
-	unsigned int              longestSpan();
+	void         addNumber(unsigned int n);
+	void         fill(std::vector<unsigned int>::iterator start,
+					  std::vector<unsigned int>::iterator end);
+	unsigned int shortestSpan();
+	unsigned int longestSpan();
 	std::vector<unsigned int> getSpanVec() const;
 
 	class maxSizedReached : public std::exception {
